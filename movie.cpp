@@ -4,6 +4,7 @@
 	Lab 10
 	movie.cpp
 */
+#include <iostream>
 #include "movie.h"
 
 void printMovie(Movie mv){
@@ -15,5 +16,5 @@ void printMovie(Movie mv){
         case ROMANCE  : g = "ROMANCE"; break;
         case THRILLER : g = "THRILLER"; break;
     }
-    cout << mv.title << " " << g << " (" << mv.duration << " min)";
+    std::cout << mv.title << " " << g << " (" << mv.duration << " min)";
 }

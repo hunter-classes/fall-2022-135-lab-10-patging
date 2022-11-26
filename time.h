@@ -5,6 +5,7 @@ Time.h
 */
 
 #pragma once
+#include <string>
 
 class Time { 
     public:

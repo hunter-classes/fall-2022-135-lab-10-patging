@@ -36,5 +36,17 @@ Time addMinutes(Time time0, int min) {
 // for debugging and main.cpp purposes only
 std::string time_to_string(Time time) {
     //turns time into hour::min format 24 mode
-    return std::to_string(time.h) + ":" + std::to_string(time.m);
+
+    std::string h = std::to_string(time.h);
+    std::string m = std::to_string(time.m);
+
+    if(time.h < 10) {
+        h = "0" + h;
+    }
+
+    if(time.m < 10) {
+        m = "0" + m;
+    }
+
+    return h + ":" + m;
 }

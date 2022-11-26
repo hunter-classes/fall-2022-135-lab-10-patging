@@ -11,6 +11,7 @@
 
 #include "doctest.h"
 #include "time.h"
+#include "timeslot.h"
 
 TEST_CASE("Testing test class and related functions") {
     Time t1 = {12, 0}; // 12:00
@@ -40,4 +41,100 @@ TEST_CASE("AddingMinutes") {
     CHECK(addMinutes(t1, 61).m == 1);
     CHECK(addMinutes(t1,1440).h == 12);
     CHECK(addMinutes(t1,1440).m == 0);
+}
+
+
+TEST_CASE("getTimeSlot") {
+
+    TimeSlot ts1 = {
+        {"Test",DRAMA,120},
+        {12,0}
+    };
+
+
+    TimeSlot ts2 = {
+        {"Test2",COMEDY,0},
+        {12,0}
+    };
+
+
+    TimeSlot ts3 = {
+        {"Test3",THRILLER,1440},
+        {12,0}
+    };
+
+    CHECK(getTimeSlot(ts1) == "Test DRAMA (120 min) [starts at 12:00, ends by 14:00]");
+    CHECK(getTimeSlot(ts2) == "Test2 COMEDY (0 min) [starts at 12:00, ends by 12:00]");
+    CHECK(getTimeSlot(ts3) == "Test3 THRILLER (1440 min) [starts at 12:00, ends by 12:00]");
+}
+
+
+TEST_CASE("Time Overlap") {
+    TimeSlot ts1 = {
+        {"Test",DRAMA,120},
+        {12,0}
+    }; // starts at 12:00, ends at 14:00
+
+
+    TimeSlot ts2 = {
+        {"Test2",COMEDY,90},
+        {13,0} 
+    }; // starts at 13:00, ends at 14:30
+
+
+    TimeSlot ts3 = {
+        {"Test3",THRILLER,300},
+        {12,0} 
+    }; // starts at 12:00 ends at 17:00
+
+    TimeSlot ts4 = {
+        {"Test3",THRILLER,300},
+        {1,0} 
+    }; // 01:00 to 6:00
+
+    CHECK(timeOverlap(ts1,ts2)); 
+    CHECK(timeOverlap(ts2, ts1));
+    CHECK(timeOverlap(ts3,ts2));
+    CHECK(timeOverlap(ts3,ts1));
+
+    CHECK(! timeOverlap(ts4,ts2));
+    CHECK(! timeOverlap(ts1, ts4));
+}
+
+TEST_CASE("schedule After") {
+    TimeSlot ts1 = {
+        {"Test",DRAMA,120},
+        {12,0}
+    }; // starts at 12:00, ends at 14:00
+
+
+    TimeSlot ts2 = {
+        {"Test2",COMEDY,90},
+        {13,0} 
+    }; // starts at 13:00, ends at 14:30
+
+
+    TimeSlot ts3 = {
+        {"Test3",THRILLER,300},
+        {12,0} 
+    }; // starts at 12:00 ends at 17:00
+
+    TimeSlot ts4 = {
+        {"Test3",THRILLER,300},
+        {1,0} 
+    }; // 01:00 to 6:00
+
+    Movie mv = {"Test",ACTION,100}; // generic it doesn't really matter
+
+    CHECK(scheduleAfter(ts1,mv).startTime.h == 14);
+    CHECK(scheduleAfter(ts1,mv).startTime.m == 0);
+    
+    CHECK(scheduleAfter(ts2,mv).startTime.h == 14);
+    CHECK(scheduleAfter(ts2,mv).startTime.h == 30);
+    
+    CHECK(scheduleAfter(ts3,mv).startTime.h == 17);
+    CHECK(scheduleAfter(ts3,mv).startTime.h == 0);
+    
+    CHECK(scheduleAfter(ts4,mv).startTime.h == 6);
+    CHECK(scheduleAfter(ts4,mv).startTime.h == 0);
 }
