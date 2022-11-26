@@ -6,7 +6,7 @@
 
 * GitHub username: patging
 
-* Notes:
+* Notes: In the repo history there may be entries from my other account; it's a minor mistake just due to me switching over to my mom's old computer and me forgetting to update the credentials in the git.
 
 
   

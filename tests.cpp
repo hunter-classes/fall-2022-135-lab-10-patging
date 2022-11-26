@@ -4,7 +4,7 @@
     Lab 10
     tests.cpp
 
-
+*/
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include <iostream>
@@ -31,4 +31,13 @@ TEST_CASE("Testing test class and related functions") {
     CHECK(minutesUntil(t2, t1) == 240);
 
 }
-*/
+
+TEST_CASE("AddingMinutes") {
+    Time t1 = {12,0}; // noon
+
+    // perhaps a better way to do it, but g++ was demolishing me
+    CHECK(addMinutes(t1, 60).h == 13);
+    CHECK(addMinutes(t1, 61).m == 1);
+    CHECK(addMinutes(t1,1440).h == 12);
+    CHECK(addMinutes(t1,1440).m == 0);
+}
