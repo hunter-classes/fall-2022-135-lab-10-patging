@@ -6,7 +6,7 @@
 
 * GitHub username: patging
 
-* Notes: In the repo history there may be entries from my other account; it's a minor mistake just due to me switching over to my mom's old computer and me forgetting to update the credentials in the git.
+* Notes: In the repo history there may be entries from my other account (and sging04, which was my other brother); it's a minor mistake just due to me switching over to my mom's old computer and me forgetting to update the credentials in the git. All of this is my code, i just am having trouble switching users on this old computer that's my mothers
 
 
   
